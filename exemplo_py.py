@@ -2,12 +2,14 @@
 # To add a new markdown cell, type '#%% [markdown]'
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataScience.changeDirOnImportExport setting
 # ms-python.python added
+'''
 import os
 try:
 	os.chdir(os.path.join(os.getcwd(), '../../../../tmp'))
 	print(os.getcwd())
 except:
 	pass
+'''
 #%%
 from IPython import get_ipython
 
@@ -52,7 +54,8 @@ from IPython import get_ipython
 
 #%%
 #We upload all the packages we need
-get_ipython().magic('matplotlib inline')
+# In[]
+#get_ipython().magic('matplotlib inline')
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
@@ -92,8 +95,8 @@ tf.__version__
 
 #%%
 #We unzip the train and test zip file
-archive_train = ZipFile("Data/train.zip", 'r')
-archive_test = ZipFile("Data/test.zip", 'r')
+archive_train = ZipFile("./Data/train.zip", 'r')
+archive_test = ZipFile("./Data/test.zip", 'r')
 
 #This line shows the 5 first image name of the train database
 archive_train.namelist()[0:5]
@@ -241,18 +244,19 @@ plt.show()
 
 #%%
 #######Upload the zip (input data base)########
-labels_raw = pd.read_csv("Data/labels.csv.zip", compression='zip', header=0, sep=',', quotechar='"')
+labels_raw = pd.read_csv("./Data/labels.csv", header=0, sep=',', quotechar='"')
 
 #Check 5 random values
 labels_raw.sample(5)
 
+'''
 #%% [markdown]
 # ## **The following code is design for the *Kaggle Kernel*. DO NOT COPY IT ON YOUR COMPUTER.**
 
 #%%
 labels_raw = pd.read_csv('../input/labels.csv')
 df_train.sample(5)
-
+'''
 #%% [markdown]
 # ## **We come back to the code commonly used by the Kaggle Kernel or your jupyter notebook**
 #%% [markdown]
