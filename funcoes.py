@@ -101,7 +101,8 @@ def new_conv_layer(input,              # The previous layer.
                    filter_size,        # Width and height of each filter.
                    num_filters,        # Number of filters.
                    use_pooling=True,
-                   use_dropout=True):  # Use 2x2 max-pooling.
+                   use_dropout=True,
+                   keep_prob_conv=0.5):  # Use 2x2 max-pooling.
 
     # Shape of the filter-weights for the convolution.
     # This format is determined by the TensorFlow API.
@@ -190,7 +191,8 @@ def new_fc_layer(input,          # The previous layer.
                  num_inputs,     # Num. inputs from prev. layer.
                  num_outputs,    # Num. outputs.
                  use_relu=True,
-                 use_dropout=True): # Use Rectified Linear Unit (ReLU)?
+                 use_dropout=True,
+                 keep_prob_fc=0.1): # Use Rectified Linear Unit (ReLU)?
 
     # Create new weights and biases.
     weights = new_weights(shape=[num_inputs, num_outputs])
@@ -213,9 +215,21 @@ def new_fc_layer(input,          # The previous layer.
 
 
 def main_breeds(labels_raw, Nber_breeds , all_breeds='TRUE'):
+    labels_freq_pd = itemfreq(labels_raw["breed"])
+    labels_freq_pd = labels_freq_pd[labels_freq_pd[:, 1].argsort()[::-1]] #[::-1] ==> to sort in descending order
+    
+    if all_breeds == 'FALSE':
+        main_labels = labels_freq_pd[:,0][0:Nber_breeds]
+    else: 
+        main_labels = labels_freq_pd[:,0][:]
+        
+    labels_raw_np = labels_raw["breed"].as_matrix() #transform in numpy
+    labels_raw_np = labels_raw_np.reshape(labels_raw_np.shape[0],1)
 
-    #%%
-batch_size = 50
+    labels_filtered_index = np.where(labels_raw_np == main_labels)
+    
+    return labels_filtered_index
+
 
 #function next_batch
 def next_batch(num, data, labels):
