@@ -174,8 +174,8 @@ keep_prob_conv=tf.placeholder(tf.float32)
 
 #%%
 # Convolutional Layer 1.
-filter_size1 = 7          # Convolution filters are 5 x 5 pixels.
-num_filters1 = 32         # There are 32 of these filters.
+filter_size1 = 3          # Convolution filters are 5 x 5 pixels.
+num_filters1 = 64         # There are 32 of these filters.
 
 # Convolutional Layer 2.
 filter_size2 = 5          # Convolution filters are 4 x 4 pixels.
@@ -266,7 +266,7 @@ def init_variables():
 # The function below create a batch from a dataset. We use batch to train our model.
 
 #%%
-batch_size = 50
+batch_size = 100
 
 
 #%%
