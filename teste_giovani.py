@@ -123,6 +123,7 @@ plt.show()
 
 
 #%%
+#Iniciando as defição de treino
 num_validation = 0.30
 X_train, X_validation, y_train, y_validation = train_test_split(train_filtered, labels_bin, test_size=num_validation, random_state=6)
 X_train.shape
@@ -173,11 +174,11 @@ keep_prob_conv=tf.placeholder(tf.float32)
 
 #%%
 # Convolutional Layer 1.
-filter_size1 = 5          # Convolution filters are 5 x 5 pixels.
+filter_size1 = 7          # Convolution filters are 5 x 5 pixels.
 num_filters1 = 32         # There are 32 of these filters.
 
 # Convolutional Layer 2.
-filter_size2 = 4          # Convolution filters are 4 x 4 pixels.
+filter_size2 = 5          # Convolution filters are 4 x 4 pixels.
 num_filters2 = 64      # There are 64 of these filters.
 
 # Convolutional Layer 3.
@@ -196,19 +197,24 @@ layer_conv1, weights_conv1 =     funcoes.new_conv_layer(input=x_image,
                    num_filters=num_filters1,
                    use_pooling=True,
                    use_dropout=False , keep_prob_conv=keep_prob_conv)
-    
+'''
 layer_conv2, weights_conv2 =   funcoes.new_conv_layer(input=layer_conv1,
-                   num_input_channels=num_filters1,
+                   num_input_channels=num_filters2,
                    filter_size=filter_size2,
                    num_filters=num_filters2,
-                   use_pooling=True,
+                   use_pooling=False,
                    use_dropout=False , keep_prob_conv=keep_prob_conv)
     
 
-
-
+layer_conv3, weights_conv3 =     funcoes.new_conv_layer(input=layer_conv2,	
+                   num_input_channels=num_filters2,	
+                   filter_size=filter_size3,	
+                   num_filters=num_filters3,	
+                   use_pooling=False,	
+                   use_dropout=True, keep_prob_conv=keep_prob_conv)
+'''
 #%%
-layer_flat, num_features = funcoes.flatten_layer(layer_conv2)
+layer_flat, num_features = funcoes.flatten_layer(layer_conv1)
 
 
 #%%
