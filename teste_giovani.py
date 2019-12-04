@@ -68,7 +68,7 @@ labels_raw = pd.read_csv(PREFIXO+'/Data/labels.csv', header=0, sep=',', quotecha
 #Check 5 random values
 labels_raw.sample(5)
 # %%
-Nber_of_breeds = 8
+Nber_of_breeds = 2
 
 labels_filtered_index = funcoes.main_breeds(labels_raw = labels_raw, Nber_breeds = Nber_of_breeds, all_breeds='FALSE')
 labels_filtered = labels_raw.iloc[labels_filtered_index[0],:]
@@ -125,7 +125,7 @@ plt.show()
 #%%
 #Iniciando as defição de treino
 num_validation = 0.30
-X_train, X_validation, y_train, y_validation = train_test_split(train_filtered, labels_bin, test_size=num_validation, random_state=6)
+X_train, X_validation, y_train, y_validation = train_test_split(train_filtered, labels_bin, test_size=num_validation)
 X_train.shape
 #%%
 #from the one-hot database we can find the breed.
