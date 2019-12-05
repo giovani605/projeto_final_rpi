@@ -68,7 +68,7 @@ labels_raw = pd.read_csv(PREFIXO+'/Data/labels.csv', header=0, sep=',', quotecha
 #Check 5 random values
 labels_raw.sample(5)
 # %%
-Nber_of_breeds = 2
+Nber_of_breeds = 8
 
 labels_filtered_index = funcoes.main_breeds(labels_raw = labels_raw, Nber_breeds = Nber_of_breeds, all_breeds='FALSE')
 labels_filtered = labels_raw.iloc[labels_filtered_index[0],:]
@@ -334,7 +334,7 @@ def optimize(num_iterations, X):
 
 #In[]
 # Aqui treina a rede
-optimize(num_iterations=250, X=50)
+optimize(num_iterations=50, X=50)
 
 
 #%%
@@ -355,3 +355,9 @@ print(("Pred : {0} / {1}").format(df_validation_Predicted_cls[i], labels_name[df
 lum = X_validation[i,:,:,:]
 plt.imshow(lum)
 plt.show()
+#In[]
+#matrix de confunsao
+funcoes.plot_confusion_matrix(df_validation_toPred_cls,df_validation_Predicted_cls,num_classes)
+
+
+#%%
