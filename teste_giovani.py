@@ -219,6 +219,7 @@ layer_flat, num_features = funcoes.flatten_layer(layer_conv1)
 
 #%%
 #Train
+'''
 layer_fc1 = funcoes.new_fc_layer(input=layer_flat,
                          num_inputs=num_features,
                          num_outputs=fc_size,
@@ -226,9 +227,9 @@ layer_fc1 = funcoes.new_fc_layer(input=layer_flat,
                          use_dropout=True,keep_prob_fc=keep_prob_fc)
 
 layer_fc1
-
-layer_fc2 = funcoes.new_fc_layer(input=layer_fc1,
-                         num_inputs=fc_size,
+'''
+layer_fc2 = funcoes.new_fc_layer(input=layer_flat,
+                         num_inputs=num_features,
                          num_outputs=num_classes,
                          use_relu=False,
                          use_dropout=False,keep_prob_fc=keep_prob_fc)
@@ -333,7 +334,7 @@ def optimize(num_iterations, X):
 
 #In[]
 # Aqui treina a rede
-optimize(num_iterations=1000, X=100)
+optimize(num_iterations=250, X=50)
 
 
 #%%
