@@ -197,7 +197,7 @@ layer_conv1, weights_conv1 =     funcoes.new_conv_layer(input=x_image,
                    num_filters=num_filters1,
                    use_pooling=True,
                    use_dropout=False , keep_prob_conv=keep_prob_conv)
-'''
+
 layer_conv2, weights_conv2 =   funcoes.new_conv_layer(input=layer_conv1,
                    num_input_channels=num_filters2,
                    filter_size=filter_size2,
@@ -212,9 +212,9 @@ layer_conv3, weights_conv3 =     funcoes.new_conv_layer(input=layer_conv2,
                    num_filters=num_filters3,	
                    use_pooling=False,	
                    use_dropout=True, keep_prob_conv=keep_prob_conv)
-'''
+
 #%%
-layer_flat, num_features = funcoes.flatten_layer(layer_conv1)
+layer_flat, num_features = funcoes.flatten_layer(layer_conv3)
 
 
 #%%
@@ -334,7 +334,7 @@ def optimize(num_iterations, X):
 
 #In[]
 # Aqui treina a rede
-optimize(num_iterations=500, X=50)
+optimize(num_iterations=500, X=1)
 
 
 #%%
