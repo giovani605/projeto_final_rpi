@@ -334,7 +334,7 @@ def optimize(num_iterations, X):
 
 #In[]
 # Aqui treina a rede
-optimize(num_iterations=200, X=50)
+optimize(num_iterations=500, X=50)
 
 
 #%%
