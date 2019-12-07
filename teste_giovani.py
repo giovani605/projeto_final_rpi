@@ -42,7 +42,7 @@ archive_test = ZipFile(PREFIXO + "/Data/test.zip", 'r')
 # %%
 # **3. Resize and normalize the data**
 print("normalizando os dados e resize")
-image_resize = 60
+image_resize = 80
 funcoes.DataBase_creator(archivezip = archive_train, nwigth = image_resize, nheight = image_resize , save_name = "train")
 funcoes.DataBase_creator(archivezip = archive_test, nwigth = image_resize, nheight = image_resize , save_name = "test")
 
@@ -92,7 +92,7 @@ labels.shape
 
 start_time = time.time()
 
-image_resize = 60
+
 nwigth = image_resize
 nheight = image_resize
 
@@ -334,7 +334,7 @@ def optimize(num_iterations, X):
 
 #In[]
 # Aqui treina a rede
-optimize(num_iterations=50, X=50)
+optimize(num_iterations=200, X=50)
 
 
 #%%
