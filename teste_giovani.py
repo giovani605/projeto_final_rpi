@@ -42,7 +42,7 @@ archive_test = ZipFile(PREFIXO + "/Data/test.zip", 'r')
 # %%
 # **3. Resize and normalize the data**
 print("normalizando os dados e resize")
-image_resize = 80
+image_resize = 128
 funcoes.DataBase_creator(archivezip = archive_train, nwigth = image_resize, nheight = image_resize , save_name = "train")
 funcoes.DataBase_creator(archivezip = archive_test, nwigth = image_resize, nheight = image_resize , save_name = "test")
 
@@ -172,22 +172,20 @@ keep_prob_conv=tf.placeholder(tf.float32)
 # 
 # In this part, you can play with the filter sizes and the number of filters. The best model is ont with the proper number of layers but also a good choice of filter sizes and number of filters.
 
-#%%
 # Convolutional Layer 1.
-filter_size1 = 3          # Convolution filters are 5 x 5 pixels.
-num_filters1 = 64         # There are 32 of these filters.
+filter_size1 = 5          # Convolution filters are 5 x 5 pixels.
+num_filters1 = 32         # There are 32 of these filters.
 
 # Convolutional Layer 2.
-filter_size2 = 5          # Convolution filters are 4 x 4 pixels.
-num_filters2 = 64      # There are 64 of these filters.
+filter_size2 = 4          # Convolution filters are 4 x 4 pixels.
+num_filters2 = 32      # There are 64 of these filters.
 
 # Convolutional Layer 3.
 filter_size3 = 3          # Convolution filters are 3 x 3 pixels.
-num_filters3 = 128      # There are 128 of these filters.
+num_filters3 = 64      # There are 128 of these filters.
 
 # Fully-connected layer.
 fc_size = 500 
-
 
 
 #%%
@@ -196,43 +194,42 @@ layer_conv1, weights_conv1 =     funcoes.new_conv_layer(input=x_image,
                    filter_size=filter_size1,
                    num_filters=num_filters1,
                    use_pooling=True,
-                   use_dropout=False , keep_prob_conv=keep_prob_conv)
+                   use_dropout=False)
 '''
-layer_conv2, weights_conv2 =   funcoes.new_conv_layer(input=layer_conv1,
-                   num_input_channels=num_filters2,
+layer_conv2, weights_conv2 =     funcoes.new_conv_layer(input=layer_conv1,
+                   num_input_channels=num_filters1,
                    filter_size=filter_size2,
                    num_filters=num_filters2,
-                   use_pooling=False,
-                   use_dropout=False , keep_prob_conv=keep_prob_conv)
+                   use_pooling=True,
+                   use_dropout=False)'''
     
+layer_conv3, weights_conv3 =     funcoes.new_conv_layer(input=layer_conv1,
+                   num_input_channels=num_filters1,
+                   filter_size=filter_size3,
+                   num_filters=num_filters3,
+                   use_pooling=True,
+                   use_dropout=True)
 
-layer_conv3, weights_conv3 =     funcoes.new_conv_layer(input=layer_conv2,	
-                   num_input_channels=num_filters2,	
-                   filter_size=filter_size3,	
-                   num_filters=num_filters3,	
-                   use_pooling=False,	
-                   use_dropout=True, keep_prob_conv=keep_prob_conv)
-'''
+
 #%%
-layer_flat, num_features = funcoes.flatten_layer(layer_conv1)
+layer_flat, num_features = funcoes.flatten_layer(layer_conv3)
 
 
 #%%
 #Train
-'''
 layer_fc1 = funcoes.new_fc_layer(input=layer_flat,
                          num_inputs=num_features,
                          num_outputs=fc_size,
                          use_relu=True,
-                         use_dropout=True,keep_prob_fc=keep_prob_fc)
+                         use_dropout=True)
 
 layer_fc1
-'''
-layer_fc2 = funcoes.new_fc_layer(input=layer_flat,
-                         num_inputs=num_features,
+
+layer_fc2 = funcoes.new_fc_layer(input=layer_fc1,
+                         num_inputs=fc_size,
                          num_outputs=num_classes,
                          use_relu=False,
-                         use_dropout=False,keep_prob_fc=keep_prob_fc)
+                         use_dropout=False)
 
 layer_fc2
 
@@ -250,7 +247,7 @@ cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=layer_fc2,
                                                         labels=y_true)
 cost = tf.reduce_mean(cross_entropy)
 
-optimizer = tf.train.AdamOptimizer(learning_rate=1e-4).minimize(cost)
+optimizer = tf.train.AdamOptimizer(learning_rate=1e-3).minimize(cost)
 correct_prediction = tf.equal(y_pred_cls, y_true_cls)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
@@ -334,7 +331,7 @@ def optimize(num_iterations, X):
 
 #In[]
 # Aqui treina a rede
-optimize(num_iterations=500, X=50)
+optimize(num_iterations=500, X=1)
 
 
 #%%
